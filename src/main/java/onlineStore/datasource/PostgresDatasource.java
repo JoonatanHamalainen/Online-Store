@@ -9,13 +9,13 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 public class PostgresDatasource {
-	
-	@Bean
-	@ConfigurationProperties("app.datasource")
-	public HikariDataSource hikariDataSource() {
-		return DataSourceBuilder
-				.create()
-				.type(HikariDataSource.class)
-				.build();
-	}
+
+    @Bean
+    @ConfigurationProperties("app.datasource")
+    public HikariDataSource hikariDataSource() {
+        return DataSourceBuilder
+                .create()
+                .type(HikariDataSource.class)
+                .build();
+    }
 }

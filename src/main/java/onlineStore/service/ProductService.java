@@ -16,7 +16,7 @@ public class ProductService {
 	private final IProductDao dao;
 	
 	@Autowired
-	public ProductService(@Qualifier("onlineStore") IProductDao dao) {
+	public ProductService(@Qualifier("postgres") IProductDao dao) {
 		this.dao = dao;
 	}
 	
