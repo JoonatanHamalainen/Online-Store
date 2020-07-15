@@ -1,23 +1,21 @@
 package onlineStore.model;
 
-import java.util.UUID;
-
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ProductTypes {
+public class ProductType {
 	
-	private final UUID productTypeID;
+	private final int productTypeID;
 	@NotBlank
 	private final String productTypeName;
 	
-	public ProductTypes(@JsonProperty("productTypeID") UUID productTypeID, @JsonProperty("productTypeName") String productTypeName) {
+	public ProductType(@JsonProperty("productTypeID") int productTypeID, @JsonProperty("productTypeName") String productTypeName) {
 		this.productTypeID = productTypeID;
 		this.productTypeName = productTypeName;
 	}
 
-	public UUID getProductTypeID() {
+	public int getProductTypeID() {
 		return productTypeID;
 	}
 
