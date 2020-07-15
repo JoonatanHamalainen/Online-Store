@@ -1,7 +1,7 @@
 
 CREATE TABLE Users
 (
-  UserID BINARY(16) NOT NULL,
+  UserID UUID NOT NULL,
   Gender VARCHAR(50) NOT NULL,
   Phone VARCHAR(50) NOT NULL,
   Username VARCHAR(50) NOT NULL,
@@ -16,11 +16,11 @@ CREATE TABLE Users
 
 CREATE TABLE Orders
 (
-  OrderID BINARY(16) NOT NULL,
+  OrderID UUID NOT NULL,
   OrderDate DATE NOT NULL,
   DeliveryStatus VARCHAR(50) NOT NULL,
   TotalPrice FLOAT NOT NULL,
-  UserID BINARY(16) NOT NULL,
+  UserID UUID NOT NULL,
   PRIMARY KEY (OrderID),
   FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
@@ -34,7 +34,7 @@ CREATE TABLE ProductTypes
 
 CREATE TABLE Product
 (
-  ProductID BINARY(16) NOT NULL,
+  ProductID UUID NOT NULL,
   Price FLOAT NOT NULL,
   ProductName VARCHAR(50) NOT NULL,
   ImageSource VARCHAR(500) NOT NULL,
@@ -48,8 +48,8 @@ CREATE TABLE Product
 CREATE TABLE OrderProduct
 (
   Quantity INT NOT NULL,
-  OrderID BINARY(16) NOT NULL,
-  ProductID BINARY(16) NOT NULL,
+  OrderID UUID NOT NULL,
+  ProductID UUID NOT NULL,
   FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
   FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
 );
@@ -57,8 +57,8 @@ CREATE TABLE OrderProduct
 CREATE TABLE ShoppingCart
 (
   Quantity INT NOT NULL,
-  ProductID BINARY(16),
-  UserID BINARY(16) NOT NULL,
+  ProductID UUID,
+  UserID UUID NOT NULL,
   FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
   FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
