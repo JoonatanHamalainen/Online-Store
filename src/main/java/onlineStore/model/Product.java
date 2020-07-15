@@ -14,17 +14,22 @@ public class Product {
 	@NonNull
 	private final float price;
 	@NotBlank
-	private final String imageSource, description;
+	private final String productName, imageSource, description;
 	@NonNull
 	private final int stock;
 	
-	public Product(@JsonProperty("productID") UUID productID, @JsonProperty("productTypeID") UUID productTypeID, @JsonProperty("price") float price, @JsonProperty("imageSource") String imageSource, @JsonProperty("description") String description, @JsonProperty("stock") int stock) {
+	public Product(@JsonProperty("productID") UUID productID, @JsonProperty("productTypeID") UUID productTypeID, @JsonProperty("price") float price,@JsonProperty("productName") String productName, @JsonProperty("imageSource") String imageSource, @JsonProperty("description") String description, @JsonProperty("stock") int stock) {
 		this.productID = productID;
 		this.productTypeID = productTypeID;
 		this.price = price;
+		this.productName = productName;
 		this.imageSource = imageSource;
 		this.description = description;
 		this.stock = stock;
+	}
+
+	public String getProductName() {
+		return productName;
 	}
 
 	public UUID getProductID() {
