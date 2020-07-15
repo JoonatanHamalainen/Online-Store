@@ -1,6 +1,6 @@
 package onlineStore.api;
 
-import java.util.List;
+
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -33,19 +33,19 @@ public class ProductController {
 		service.addProduct(product);
 	}
 	
-	@GetMapping(path = "{ID}")
+	@GetMapping(path = "/id/{ID}")
 	public Product getProductById(@PathVariable("ID") UUID ID) {
 		return service.getProductByID(ID)
 				.orElse(null);
 	}
 	
-	@GetMapping(path = "{name}")
+	@GetMapping(path = "/name/{name}")
 	public Product getProductByName(@PathVariable("name") String name) {
 		return service.getProductByName(name)
 				.orElse(null);
 	}
 	
-	@GetMapping(path = "{productTypeID}")
+	@GetMapping(path = "/type/{productTypeID}")
 	public Product getProductByProductTypeID(@PathVariable("ID") UUID ID) {
 		return service.getProductByProductTypeID(ID)
 				.orElse(null);
@@ -60,5 +60,5 @@ public class ProductController {
 	public void updateProduct(@PathVariable("ID") UUID ID, @Valid @NonNull @RequestBody Product product) {
 		service.updateProduct(ID, product);
 	}
-
+        
 }

@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import onlineStore.model.Product;
+import org.springframework.stereotype.Repository;
 
+
+@Repository("postgres")
 public class ProductDao implements IProductDao {
 	
 	private final JdbcTemplate jdbcTemplate;
@@ -25,16 +28,15 @@ public class ProductDao implements IProductDao {
 
 	@Override
 	public Optional<Product> selectProductByID(UUID ID) {
-		final String sql = "SELECT ProductID, Price, ProductName, ImageSource, Stock, Description FROM Product WHERE ProductID = ?";
-
+		final String sql = "SELECT productid, price, productname, imagesource, stock, description, producttypeid FROM product WHERE productid = ?";
 		Product product = jdbcTemplate.queryForObject(sql, new Object[] { ID }, (resultSet, i) -> {
-			UUID productID = UUID.fromString(resultSet.getString("ProductID"));
-			float price = resultSet.getFloat("Price");
-			String productName = resultSet.getString("ProductName");
-			String imageSource = resultSet.getString("ImageSource");
-			int stock = resultSet.getInt("Stock");
-			String description = resultSet.getString("Description");
-			UUID productTypeID = UUID.fromString(resultSet.getString("ProductTypeID"));
+			UUID productID = UUID.fromString(resultSet.getString("productid"));
+			float price = resultSet.getFloat("price");
+			String productName = resultSet.getString("productname");
+			String imageSource = resultSet.getString("imagesource");
+			int stock = resultSet.getInt("stock");
+			String description = resultSet.getString("description");
+			int productTypeID = resultSet.getInt("producttypeid");
 			return new Product(productID, productTypeID, price, productName, imageSource, description, stock);
 		});
 		return Optional.ofNullable(product);
