@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import onlineStore.model.Product;
 import onlineStore.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RequestMapping("/api/v1/product")
 @RestController
@@ -24,6 +25,7 @@ public class ProductController {
 	
 	private final ProductService service;
 	
+        @Autowired
 	public ProductController(ProductService service) {
 		this.service = service;
 	}
