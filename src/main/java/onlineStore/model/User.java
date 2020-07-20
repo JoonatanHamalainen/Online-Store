@@ -4,59 +4,70 @@ import java.sql.Date;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class User {
-	
-	private final UUID userID;
-	private final String gender, phone, username, fullname, password, email, address;
-	private final Date birthdate;
-	
-	public User(@JsonProperty("userID") UUID userID, @JsonProperty("gender") String gender, @JsonProperty("phone") String phone, @JsonProperty("username") String username, @JsonProperty("fullname") String fullname, @JsonProperty("password") String password,
-			@JsonProperty("email") String email, @JsonProperty("address") String address, @JsonProperty("birthdate") Date birthdate) {
-		this.userID = userID;
-		this.gender = gender;
-		this.phone = phone;
-		this.username = username;
-		this.fullname = fullname;
-		this.password = password;
-		this.email = email;
-		this.address = address;
-		this.birthdate = birthdate;
-	}
 
-	public UUID getUserID() {
-		return userID;
-	}
+    private final UUID userID;
+    private final String gender, phone, username, fullname, password, email, address;
+    private final List<String> roles;
+    private final Date birthdate;
 
-	public String getGender() {
-		return gender;
-	}
+    public User(@JsonProperty("userID") UUID userID, @JsonProperty("gender") String gender, @JsonProperty("phone") String phone,
+            @JsonProperty("username") String username, @JsonProperty("fullname") String fullname, @JsonProperty("password") String password,
+            @JsonProperty("email") String email, @JsonProperty("address") String address, @JsonProperty("birthdate") Date birthdate,
+            @JsonProperty("roles") List<String> roles) {
+        this.userID = userID;
+        this.gender = gender;
+        this.phone = phone;
+        this.username = username;
+        this.fullname = fullname;
+        this.password = password;
+        this.email = email;
+        this.address = address;
+        this.birthdate = birthdate;
+        this.roles = roles;
+    }
+    
+    public List<String> getRoleList(){
+        return roles;
+    }
+    
+    public UUID getUserID() {
+        return userID;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public String getGender() {
+        return gender;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public String getFullname() {
-		return fullname;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getFullname() {
+        return fullname;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public Date getBirthdate() {
-		return birthdate;
-	}
+    public String getAddress() {
+        return address;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
 }
