@@ -1,4 +1,3 @@
-
 CREATE TABLE Users
 (
   UserID UUID NOT NULL,
@@ -13,9 +12,20 @@ CREATE TABLE Users
   PRIMARY KEY (UserID)
 );
 
+CREATE TABLE Roles(
+  RoleID INT NOT NULL,
+  Name VARCHAR(45) NOT NULL,
+  PRIMARY KEY (RoleID)
+);
 
-CREATE TABLE Orders
-(
+CREATE TABLE UserRoles(
+  UserID UUID NOT NULL,
+  RoleID INT NOT NULL,
+  FOREIGN KEY (RoleID) REFERENCES Roles (RoleID),
+  FOREIGN KEY (UserID) REFERENCES Users (UserID)
+);
+
+CREATE TABLE Orders(
   OrderID UUID NOT NULL,
   OrderDate DATE NOT NULL,
   DeliveryStatus VARCHAR(50) NOT NULL,
@@ -62,7 +72,3 @@ CREATE TABLE ShoppingCart
   FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
   FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
-
-
-
-
