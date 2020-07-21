@@ -12,13 +12,20 @@ public class User {
 
     private UUID userID;
     private String gender, phone, username, fullname, password, email, address;
+    private boolean enabled;
     private List<String> roles;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     private Date birthdate;
 
     public User(@JsonProperty("userID") UUID userID, @JsonProperty("gender") String gender, @JsonProperty("phone") String phone,
             @JsonProperty("username") String username, @JsonProperty("fullname") String fullname, @JsonProperty("password") String password,
             @JsonProperty("email") String email, @JsonProperty("address") String address, @JsonProperty("birthdate") Date birthdate,
-            @JsonProperty("roles") List<String> roles) {
+            @JsonProperty("enabled") boolean enabled, @JsonProperty("roles") List<String> roles
+    ) {
         this.userID = userID;
         this.gender = gender;
         this.phone = phone;
@@ -28,14 +35,16 @@ public class User {
         this.email = email;
         this.address = address;
         this.birthdate = birthdate;
+        this.enabled = enabled;
         this.roles = roles;
-    }
 
-    public User() {
     }
 
     public List<String> getRoleList() {
         return roles;
+    }
+
+    public User() {
     }
 
     public UUID getUserID() {

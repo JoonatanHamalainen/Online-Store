@@ -71,5 +71,5 @@ CREATE TABLE ShoppingCart
   ProductID UUID,
   Username VARCHAR(25) NOT NULL,
   FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
-  FOREIGN KEY (Username) REFERENCES Users(Username  )
+  FOREIGN KEY (Username) REFERENCES Users(Username)
 );

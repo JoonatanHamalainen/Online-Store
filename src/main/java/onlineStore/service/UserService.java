@@ -22,5 +22,9 @@ public class UserService {
         return dao.selectUserByUserName(username);
     }
     
+    public int addUser(User user){
+        System.out.println("lolleoel");
+        return dao.insertUser(user);
+    }
     
 }

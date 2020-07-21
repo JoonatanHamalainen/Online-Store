@@ -8,7 +8,9 @@ package onlineStore.security;
 import onlineStore.datasource.PostgresDatasource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +32,13 @@ public class JdbcSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+            .authorizeRequests()
+                .anyRequest().permitAll();
+    }
+
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .jdbcAuthentication()
@@ -38,10 +47,11 @@ public class JdbcSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery(
                         "SELECT username, password, enabled from users where username = ?")
                 .authoritiesByUsernameQuery(
-                        "SELECT u.username, a.authority "
-                        + "FROM user_authorities a, users u "
-                        + "WHERE u.username = ? "
-                        + "AND u.id = a.user_id"
+                        "SELECT users.username , roles.name\n"
+                        + "        FROM users \n"
+                        + "        INNER JOIN userroles ON users.username = userroles.username\n"
+                        + "        INNER JOIN roles ON userroles.roleid = roles.roleid\n"
+                        + "        WHERE users.username = ?"
                 );
     }
 }
