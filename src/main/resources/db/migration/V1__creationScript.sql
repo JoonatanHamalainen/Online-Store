@@ -10,7 +10,7 @@ CREATE TABLE Users
   Birthdate DATE NOT NULL,
   Address VARCHAR(50) NOT NULL,
   enabled BOOLEAN NOT NULL,
-  PRIMARY KEY (UserID)
+  PRIMARY KEY (Username)
 );
 
 CREATE TABLE Roles(
@@ -20,10 +20,10 @@ CREATE TABLE Roles(
 );
 
 CREATE TABLE UserRoles(
-  UserID UUID NOT NULL,
+  Username VARCHAR(25) NOT NULL,
   RoleID INT NOT NULL,
   FOREIGN KEY (RoleID) REFERENCES Roles (RoleID),
-  FOREIGN KEY (UserID) REFERENCES Users (UserID)
+  FOREIGN KEY (Username) REFERENCES Users (Username)
 );
 
 CREATE TABLE Orders(
@@ -31,9 +31,9 @@ CREATE TABLE Orders(
   OrderDate DATE NOT NULL,
   DeliveryStatus VARCHAR(50) NOT NULL,
   TotalPrice FLOAT NOT NULL,
-  UserID UUID NOT NULL,
+  Username VARCHAR(25) NOT NULL,
   PRIMARY KEY (OrderID),
-  FOREIGN KEY (UserID) REFERENCES Users(UserID)
+  FOREIGN KEY (Username) REFERENCES Users(Username)
 );
 
 CREATE TABLE ProductTypes
@@ -69,7 +69,7 @@ CREATE TABLE ShoppingCart
 (
   Quantity INT NOT NULL,
   ProductID UUID,
-  UserID UUID NOT NULL,
+  Username VARCHAR(25) NOT NULL,
   FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
-  FOREIGN KEY (UserID) REFERENCES Users(UserID)
+  FOREIGN KEY (Username) REFERENCES Users(Username  )
 );

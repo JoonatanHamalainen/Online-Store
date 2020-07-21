@@ -30,14 +30,14 @@ public class User {
         this.birthdate = birthdate;
         this.roles = roles;
     }
-    
-    public User() {
-	}
 
-	public List<String> getRoleList(){
+    public User() {
+    }
+
+    public List<String> getRoleList() {
         return roles;
     }
-    
+
     public UUID getUserID() {
         return userID;
     }
@@ -73,12 +73,12 @@ public class User {
     public Date getBirthdate() {
         return birthdate;
     }
-    
+
     public void setUsername(String username) {
-		this.username = username;
-	}
-    
+        this.username = username;
+    }
+
     public void setPassword(String password) {
-		this.password = password;
-	}
+        this.password = password;
+    }
 }
