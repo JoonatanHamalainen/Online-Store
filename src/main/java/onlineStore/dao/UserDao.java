@@ -6,6 +6,7 @@
 package onlineStore.dao;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import onlineStore.model.User;
@@ -40,7 +41,7 @@ public class UserDao implements IUserDao {
             return name;
         });
 
-        final String sql2 = "SELECT userid, gender, phone, username, fullname, userpassword, email, birthdate, address "
+        final String sql2 = "SELECT userid, gender, phone, username, fullname, userpassword, email, birthdate, address, enabled "
                 + "FROM users WHERE userid = ?";
 
         User user = jdbcTemplate.queryForObject(sql2, new Object[]{ID}, (resultSet, i) -> {
@@ -53,7 +54,8 @@ public class UserDao implements IUserDao {
             String email = resultSet.getString("email");
             Date date = resultSet.getDate("birthdate");
             String address = resultSet.getString("address");
-            return new User(userID, gender, phone, username, fullname, userpassword, email, address, date, roles);
+            boolean enabled = resultSet.getBoolean("enabled");
+            return new User(userID, gender, phone, username, fullname, userpassword, email, address, date, enabled, roles);
 
         });
 
@@ -71,6 +73,15 @@ public class UserDao implements IUserDao {
         User user = selectUserByUserID(userID);
         
         return user;
+    }
+
+    @Override
+    public int insertUser(UUID id, User user) {
+        final String sql = "INSERT INTO users (userid, gender, phone, username, fullname, userpassword, email,"
+                + " birthdate, address, enabled) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        
+        return jdbcTemplate.update(sql, id, user.getGender(), user.getPhone(), user.getUsername(),
+                user.getFullname(), user.getPassword(), user.getEmail(), user.getBirthdate(), user.getAddress(), user.isEnabled());
     }
 
 }
