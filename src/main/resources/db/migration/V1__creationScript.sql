@@ -9,6 +9,7 @@ CREATE TABLE Users
   Email VARCHAR(50) NOT NULL,
   Birthdate DATE NOT NULL,
   Address VARCHAR(50) NOT NULL,
+  enabled BOOLEAN NOT NULL,
   PRIMARY KEY (UserID)
 );
 

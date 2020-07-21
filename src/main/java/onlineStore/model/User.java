@@ -10,10 +10,10 @@ import java.util.List;
 
 public class User {
 
-    private final UUID userID;
-    private final String gender, phone, username, fullname, password, email, address;
-    private final List<String> roles;
-    private final Date birthdate;
+    private UUID userID;
+    private String gender, phone, username, fullname, password, email, address;
+    private List<String> roles;
+    private Date birthdate;
 
     public User(@JsonProperty("userID") UUID userID, @JsonProperty("gender") String gender, @JsonProperty("phone") String phone,
             @JsonProperty("username") String username, @JsonProperty("fullname") String fullname, @JsonProperty("password") String password,
@@ -31,7 +31,10 @@ public class User {
         this.roles = roles;
     }
     
-    public List<String> getRoleList(){
+    public User() {
+	}
+
+	public List<String> getRoleList(){
         return roles;
     }
     
@@ -70,4 +73,12 @@ public class User {
     public Date getBirthdate() {
         return birthdate;
     }
+    
+    public void setUsername(String username) {
+		this.username = username;
+	}
+    
+    public void setPassword(String password) {
+		this.password = password;
+	}
 }
