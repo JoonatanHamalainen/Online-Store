@@ -34,9 +34,8 @@ public class JdbcSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/**/admin/**").hasRole("ADMIN")
                 .antMatchers("/").permitAll()
-                //.anyRequest().fullyAuthenticated()
                 .and().httpBasic()
                 .and().csrf().disable();
     }
@@ -49,11 +48,11 @@ public class JdbcSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery(
                         "SELECT username, userpassword, enabled from users where username = ?")
                 .authoritiesByUsernameQuery(
-                        "SELECT users.username , roles.name\n"
-                        + "        FROM users \n"
-                        + "        INNER JOIN userroles ON users.username = userroles.username\n"
-                        + "        INNER JOIN roles ON userroles.roleid = roles.roleid\n"
-                        + "        WHERE users.username = ?"
+                        "SELECT users.username , roles.name"
+                        + " FROM users "
+                        + " INNER JOIN userroles ON users.username = userroles.username"
+                        + " INNER JOIN roles ON userroles.roleid = roles.roleid"
+                        + " WHERE users.username = ?"
                 );
     }
 }
