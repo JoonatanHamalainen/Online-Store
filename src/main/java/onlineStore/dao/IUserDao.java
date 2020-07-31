@@ -13,8 +13,9 @@ public interface IUserDao {
 
     }
 
-    User selectUserByUserName(String userName);
+    User selectUserByUsername(String userName);
 
-    User selectUserByUserID(UUID userID);
+    int insertUsersRoleIntoUserRoles(String username, int role);
+
 
 }

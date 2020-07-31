@@ -18,13 +18,16 @@ public class UserService {
         this.dao = dao;
     }
     
-    public User getUserByUserID(String username) {
-        return dao.selectUserByUserName(username);
+    public User getUserByUsername(String username) {
+        return dao.selectUserByUsername(username);
     }
     
     public int addUser(User user){
-        System.out.println("lolleoel");
         return dao.insertUser(user);
+    }
+    
+    public int addAdminIntoUserRoles(String username, int role) {
+        return dao.insertUsersRoleIntoUserRoles(username, role);
     }
     
 }

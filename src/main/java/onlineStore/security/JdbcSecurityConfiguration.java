@@ -33,19 +33,21 @@ public class JdbcSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-            .authorizeRequests()
-                .anyRequest().permitAll();
+        http.authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/").permitAll()
+                //.anyRequest().fullyAuthenticated()
+                .and().httpBasic()
+                .and().csrf().disable();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .jdbcAuthentication()
+        auth.jdbcAuthentication()
                 .dataSource(dataSource.hikariDataSource())
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery(
-                        "SELECT username, password, enabled from users where username = ?")
+                        "SELECT username, userpassword, enabled from users where username = ?")
                 .authoritiesByUsernameQuery(
                         "SELECT users.username , roles.name\n"
                         + "        FROM users \n"
