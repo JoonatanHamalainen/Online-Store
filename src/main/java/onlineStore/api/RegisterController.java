@@ -27,7 +27,6 @@ public class RegisterController {
 
     @PostMapping("api/v1/register")
     public void addUser(@Valid @NonNull @RequestBody User user) {
-        System.out.println("lol");
         userService.addUser(user);
     }
 

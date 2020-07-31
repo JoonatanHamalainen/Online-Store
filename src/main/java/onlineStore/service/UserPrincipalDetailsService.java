@@ -34,7 +34,7 @@ public class UserPrincipalDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
         
-        User user = this.userDao.selectUserByUserName(string);
+        User user = this.userDao.selectUserByUsername(string);
         UserPrincipal userPrincipal = new UserPrincipal(user);
         
         return userPrincipal;

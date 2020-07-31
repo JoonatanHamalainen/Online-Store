@@ -5,7 +5,7 @@ CREATE TABLE Users
   Phone VARCHAR(50) NOT NULL,
   Username VARCHAR(50) NOT NULL,
   Fullname VARCHAR(50) NOT NULL,
-  UserPassword VARCHAR(50) NOT NULL,
+  UserPassword VARCHAR(100) NOT NULL,
   Email VARCHAR(50) NOT NULL,
   Birthdate DATE NOT NULL,
   Address VARCHAR(50) NOT NULL,
