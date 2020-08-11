@@ -40,15 +40,17 @@ public class JdbcSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/").permitAll()
 		.and()
 		.formLogin()
-		.loginPage("/login.html")
-		.loginProcessingUrl("/perform_login")
-		.defaultSuccessUrl("/welcome.html", true)
+                        //tässä ei saa lukea .html!!
+		.loginPage("/login")
+		//.loginProcessingUrl("/perform_login")
+		.defaultSuccessUrl("/welcome", true)
 		//.failureHandler(authenticationFailureHandler())
 		.and()
 		.logout()
 		.logoutUrl("/perform_logout")
 		.deleteCookies("JSESSIONID")
-		.and().httpBasic();
+		//.and().httpBasic()
+                        ;
 	}
 
 	@Override
