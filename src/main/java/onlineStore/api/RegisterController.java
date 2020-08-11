@@ -29,5 +29,4 @@ public class RegisterController {
     public void addUser(@Valid @NonNull @RequestBody User user) {
         userService.addUser(user);
     }
-
 }

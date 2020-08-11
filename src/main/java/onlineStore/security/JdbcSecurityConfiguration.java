@@ -23,36 +23,40 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class JdbcSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private PostgresDatasource dataSource;
+	@Autowired
+	private PostgresDatasource dataSource;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/**/admin/**").hasRole("ADMIN")
-                .antMatchers("/").permitAll()
-                .and().httpBasic()
-                .and().csrf().disable();
-    }
+	@Override
+	public void configure(HttpSecurity http) throws Exception {
+		http
+		.csrf().disable()
+		.authorizeRequests()
+		.antMatchers("/**/admin/**").hasRole("ADMIN")
+		.antMatchers("/").permitAll()
+		.and()
+		.formLogin()
+		.loginPage("/login.html")
+		.loginProcessingUrl("/perform_login")
+		.defaultSuccessUrl("/welcome.html", true)
+		//.failureHandler(authenticationFailureHandler())
+		.and()
+		.logout()
+		.logoutUrl("/perform_logout")
+		.deleteCookies("JSESSIONID")
+		.and().httpBasic();
+	}
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource.hikariDataSource())
-                .passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery(
-                        "SELECT username, userpassword, enabled from users where username = ?")
-                .authoritiesByUsernameQuery(
-                        "SELECT users.username , roles.name"
-                        + " FROM users "
-                        + " INNER JOIN userroles ON users.username = userroles.username"
-                        + " INNER JOIN roles ON userroles.roleid = roles.roleid"
-                        + " WHERE users.username = ?"
-                );
-    }
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.jdbcAuthentication().dataSource(dataSource.hikariDataSource()).passwordEncoder(passwordEncoder())
+				.usersByUsernameQuery("SELECT username, userpassword, enabled from users where username = ?")
+				.authoritiesByUsernameQuery("SELECT users.username , roles.name" + " FROM users "
+						+ " INNER JOIN userroles ON users.username = userroles.username"
+						+ " INNER JOIN roles ON userroles.roleid = roles.roleid" + " WHERE users.username = ?");
+	}
 }
