@@ -4,3 +4,9 @@ app:
     username: postgres
     password: password
     pool-size: 30
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
