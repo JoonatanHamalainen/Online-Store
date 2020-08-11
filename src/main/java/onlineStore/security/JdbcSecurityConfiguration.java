@@ -31,19 +31,28 @@ public class JdbcSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Override
-	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-		.antMatchers("**/admin/**").hasRole("Admin")
-				.antMatchers("/").permitAll()
-				.and().httpBasic();
-	}
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/**/admin/**").hasRole("ADMIN")
+                .antMatchers("/").permitAll()
+                .and().httpBasic()
+                .and().csrf().disable();
+    }
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(dataSource.hikariDataSource()).passwordEncoder(passwordEncoder())
-				.usersByUsernameQuery("SELECT username, password, enabled from users where username = ?")
-				.authoritiesByUsernameQuery(
-						"SELECT users.username, roles.name FROM users INNER JOIN userroles ON users.username = userroles.username INNER JOIN roles ON userroles.roleid = roles.roleid WHERE users.username = ?");
-	}
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication()
+                .dataSource(dataSource.hikariDataSource())
+                .passwordEncoder(passwordEncoder())
+                .usersByUsernameQuery(
+                        "SELECT username, userpassword, enabled from users where username = ?")
+                .authoritiesByUsernameQuery(
+                        "SELECT users.username , roles.name"
+                        + " FROM users "
+                        + " INNER JOIN userroles ON users.username = userroles.username"
+                        + " INNER JOIN roles ON userroles.roleid = roles.roleid"
+                        + " WHERE users.username = ?"
+                );
+    }
 }

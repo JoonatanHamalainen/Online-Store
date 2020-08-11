@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/users/admin")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService userService;
@@ -30,7 +30,7 @@ public class UserController {
         return userService.getUserByUsername(name);              
     }
     
-    @PostMapping("/userRoles")
+    @PostMapping("/admin/userRoles")
     public int addAdminIntoUserRoles (@Valid @NonNull @RequestBody UserRoles userRoles){
         return userService.addAdminIntoUserRoles(userRoles.getUsername(), userRoles.getRoleid());
     }
