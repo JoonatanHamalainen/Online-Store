@@ -17,24 +17,30 @@ import org.springframework.stereotype.Service;
  *
  * @author Pate
  */
-
 @Service
 public class ProductTypeService {
-    
+
     private final IProductTypeDao productTypeDao;
 
     @Autowired
     public ProductTypeService(@Qualifier("productType") IProductTypeDao productTypeDao) {
         this.productTypeDao = productTypeDao;
     }
-    
+
     public Optional<ProductType> getProductTypeBy_ID(int ID) {
         return productTypeDao.selectProductTypeBy_ID(ID);
     }
-    
-    public List<ProductType> getAllProductTypes(){
+
+    public List<ProductType> getAllProductTypes() {
         return productTypeDao.selectAllProductTypes();
     }
-    
-    
+
+    public int addProductType(ProductType productType) {
+        return productTypeDao.insertProductType(productType);
+    }
+
+    public int updateProductType(int ID, ProductType productType) {
+        return productTypeDao.updateProductTypesNameByID(ID, productType);
+    }
+
 }

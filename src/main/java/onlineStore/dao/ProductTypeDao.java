@@ -7,7 +7,6 @@ package onlineStore.dao;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import onlineStore.model.ProductType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Repository;
  *
  * @author Pate
  */
-
 @Repository("productType")
 public class ProductTypeDao implements IProductTypeDao {
 
@@ -50,6 +48,19 @@ public class ProductTypeDao implements IProductTypeDao {
             return new ProductType(productTypeID, productTypeName);
         });
 
+    }
+
+    @Override
+    public int insertProductType(ProductType productType) {
+        final String sql = "INSERT INTO producttypes (producttypeid, producttypename)"
+                + " VALUES (?, ?)";
+        return jdbcTemplate.update(sql, productType.getProductTypeID(), productType.getProductTypeName());
+    }
+
+    @Override
+    public int updateProductTypesNameByID(int ID, ProductType productType) {
+        final String sql = "UPDATE producttypes SET producttypename = ? WHERE producttypeid = ?";
+        return jdbcTemplate.update(sql, productType.getProductTypeName(), ID);
     }
 
 }

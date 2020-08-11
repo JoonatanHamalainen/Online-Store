@@ -14,12 +14,13 @@ import onlineStore.model.ProductType;
  * @author Pate
  */
 public interface IProductTypeDao {
-    
+
     Optional<ProductType> selectProductTypeBy_ID(int ID);
+
     List<ProductType> selectAllProductTypes();
-    
-    
-            
-            //Optional<Product> selectProductByID(UUID ID);
-    
+
+    int insertProductType(ProductType productType);
+
+    int updateProductTypesNameByID(int ID, ProductType productType);
+
 }
