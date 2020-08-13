@@ -1,5 +1,7 @@
 package onlineStore.dao;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -10,7 +12,7 @@ import onlineStore.model.Product;
 import org.springframework.stereotype.Repository;
 
 
-@Repository("postgres")
+@Repository("product")
 public class ProductDao implements IProductDao {
 	
 	private final JdbcTemplate jdbcTemplate;
@@ -22,8 +24,8 @@ public class ProductDao implements IProductDao {
 
 	@Override
 	public int insertProduct(UUID ID, Product product) {
-		// TODO Auto-generated method stub
-		return 0;
+		final String sql = "INSERT INTO product (productid, price, productname, imagesource, stock, description, producttypeid) VALUES (?,?,?,?,?,?,?)";
+		return jdbcTemplate.update(sql, ID, product.getPrice(), product.getProductName(), product.getImageSource(), product.getStock(), product.getDescription(), product.getProductTypeID());
 	}
 
 	@Override
@@ -43,27 +45,29 @@ public class ProductDao implements IProductDao {
 	}
 
 	@Override
-	public Optional<Product> selectProductByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map<String, Object>> selectProductsByName(String name) {
+		final String sql = "SELECT * FROM product WHERE productname LIKE ?";
+		List<Map<String, Object>> products = jdbcTemplate.queryForList(sql, '%' + name + '%');
+		
+		return products;
 	}
 
 	@Override
-	public Optional<Product> selectProductByProductTypeID(UUID ID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map<String, Object>> selectProductsByProductTypeID(int ID) {
+		final String sql = "SELECT * FROM product WHERE producttypeid = ?";
+		return jdbcTemplate.queryForList(sql, ID);
 	}
 
 	@Override
 	public int deleteProductById(UUID ID) {
-		// TODO Auto-generated method stub
-		return 0;
+		final String sql = "DELETE FROM product WHERE productid = ?";
+		return jdbcTemplate.update(sql, ID);
 	}
 
 	@Override
 	public int updateProductById(UUID ID, Product product) {
-		// TODO Auto-generated method stub
-		return 0;
+		final String sql = "UPDATE product SET price = ?, productname = ?, imagesource  = ?, stock = ?, description = ? WHERE productid = ?";
+		return jdbcTemplate.update(sql, product.getPrice(), product.getProductName(), product.getImageSource(), product.getStock(), product.getDescription(), ID);
 	}
 
 }

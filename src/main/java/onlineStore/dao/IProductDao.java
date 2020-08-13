@@ -1,5 +1,7 @@
 package onlineStore.dao;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,9 +18,9 @@ public interface IProductDao {
 	
 	Optional<Product> selectProductByID(UUID ID);
 	
-	Optional<Product> selectProductByName(String name);
+	List<Map<String, Object>> selectProductsByName(String name);
 	
-	Optional<Product> selectProductByProductTypeID(UUID ID);
+	List<Map<String, Object>> selectProductsByProductTypeID(int iD);
 	
 	int deleteProductById(UUID ID);
 	

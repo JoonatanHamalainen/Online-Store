@@ -1,5 +1,7 @@
 package onlineStore.service;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,7 +18,7 @@ public class ProductService {
 	private final IProductDao dao;
 	
 	@Autowired
-	public ProductService(@Qualifier("postgres") IProductDao dao) {
+	public ProductService(@Qualifier("product") IProductDao dao) {
 		this.dao = dao;
 	}
 	
@@ -28,12 +30,12 @@ public class ProductService {
 		return dao.selectProductByID(ID);
 	}
 	
-	public Optional<Product> getProductByName(String name) {
-		return dao.selectProductByName(name);
+	public List<Map<String,Object>> getProductsByName(String name) {
+		return dao.selectProductsByName(name);
 	}
 	
-	public Optional<Product> getProductByProductTypeID(UUID ID) {
-		return dao.selectProductByProductTypeID(ID);
+	public List<Map<String,Object>> getProductByProductsTypeID(int ID) {
+		return dao.selectProductsByProductTypeID(ID);
 	}
 	
 	public int deleteProduct(UUID id) {
