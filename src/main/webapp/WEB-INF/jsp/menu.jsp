@@ -11,7 +11,7 @@
             <a onclick="document.forms['logoutForm'].submit()">Logout</a>
             </h3></u>
 
-    <form id="logoutForm" method="POST" action="${contextPath}/logout">
+    <form id="logoutForm" method="POST" action="${contextPath}/perform_logout">
     </form>
 
 </div>
