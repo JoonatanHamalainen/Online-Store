@@ -1,6 +1,8 @@
 package onlineStore.api;
 
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -42,15 +44,13 @@ public class ProductController {
 	}
 	
 	@GetMapping(path = "/name/{name}")
-	public Product getProductByName(@PathVariable("name") String name) {
-		return service.getProductByName(name)
-				.orElse(null);
+	public List<Map<String,Object>> getProductByName(@PathVariable("name") String name) {
+		return service.getProductsByName(name);
 	}
 	
 	@GetMapping(path = "/type/{productTypeID}")
-	public Product getProductByProductTypeID(@PathVariable("ID") UUID ID) {
-		return service.getProductByProductTypeID(ID)
-				.orElse(null);
+	public List<Map<String,Object>> getProductsByProductTypeID(@PathVariable("productTypeID") int ID) {
+		return service.getProductByProductsTypeID(ID);
 	}
 	
 	@DeleteMapping(path = "{ID}")
