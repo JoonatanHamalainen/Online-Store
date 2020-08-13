@@ -4,8 +4,6 @@ import java.sql.Date;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class User {
