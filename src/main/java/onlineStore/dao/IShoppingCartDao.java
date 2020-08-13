@@ -1,19 +1,20 @@
 package onlineStore.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
-import onlineStore.model.Product;
+import onlineStore.model.ShoppingCart;
 
 public interface IShoppingCartDao {
 	
-	List<Product> selectAllProductsFromCart();
+	List<Map<String, Object>> selectAllProductsFromCart(String username);
 	
-	int insertProductToCart(UUID userID, UUID productID);
+	int insertProductToCart(ShoppingCart cart);
 	
-	int deleteProductFromCart(UUID userID, UUID productID);
+	int deleteProductFromCart(String username, UUID productID);
 	
-	int deleteCartByID(UUID userID);
+	int deleteCartByID(String username);
 	
 	
 	
